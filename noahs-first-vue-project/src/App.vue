@@ -1,34 +1,41 @@
 <script setup>
 import { ref } from "vue";
 
-const value = ref("0");
+const billTotal = ref("0");
+
+const billCurrency = ref(Number(billTotal.value).toFixed(2));
 
 const numberOfGuests = ref(1);
 
 const amountToPay = ref(0);
 
 function handleClick(button) {
-  if (!value.value) {
-    value.value = "0";
+  if (!billTotal.value) {
+    billTotal.value = "0";
   } else if (button == "del") {
-    if (value.value === "0") {
-      value.value = "0";
+    if (billTotal.value === "0") {
+      billTotal.value = "0";
     } else {
-      value.value = value.value.slice(0, -1);
-      if (!value.value) {
-        value.value = "0";
+      billTotal.value = billTotal.value.slice(0, -1);
+      if (!billTotal.value) {
+        billTotal.value = "0";
       }
     }
-  } else if (value.value === "0") {
-    value.value = button;
+  } else if (billTotal.value === "0") {
+    billTotal.value = button;
   } else {
-    value.value = value.value + button;
+    billTotal.value = billTotal.value + button;
   }
   calculateAmountToPay();
+  convertInputToCurrency();
+}
+
+function convertInputToCurrency() {
+  billCurrency.value = Number(billTotal.value).toFixed(2);
 }
 
 function calculateAmountToPay() {
-  amountToPay.value = Number(value.value / numberOfGuests.value).toFixed(2);
+  amountToPay.value = Number(billTotal.value / numberOfGuests.value).toFixed(2);
 }
 
 function divideBy(number){
@@ -43,6 +50,9 @@ function divideBy(number){
       <h1 className="heading">Split the Bill!</h1>
     </section>
     <section className="value-container">
+      <h3>Bill : £{{ billTotal }}</h3>
+      <h3>Bill : £{{ billCurrency }}</h3>
+      <h3>Split Between : {{ numberOfGuests }}</h3>
       <h3>To Pay : £{{ amountToPay }}</h3>
     </section>
     <section className="numpad-container">
