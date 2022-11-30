@@ -10,7 +10,14 @@ const numberOfGuests = ref(1);
 const amountToPay = ref(0);
 
 function handleClick(button) {
-  if (!billTotal.value) {
+  if (button === ".") {
+    if (billTotal.value.includes(".")) {
+      console.log(`${billTotal.value} includes .`);
+      return null;
+    } else {
+      billTotal.value = billTotal.value + button;
+    }
+  } else if (!billTotal.value) {
     billTotal.value = "0";
   } else if (button == "del") {
     if (billTotal.value === "0") {
@@ -23,11 +30,15 @@ function handleClick(button) {
     }
   } else if (billTotal.value === "0") {
     billTotal.value = button;
+  } else if (/^[0-9]+\.[0-9]{2,}/g.test(billTotal.value)) {
+    console.log("its a match");
+    return null;
   } else {
     billTotal.value = billTotal.value + button;
   }
   calculateAmountToPay();
   convertInputToCurrency();
+  console.log(`${billTotal.value}`);
 }
 
 function convertInputToCurrency() {
