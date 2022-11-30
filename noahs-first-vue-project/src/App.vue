@@ -9,6 +9,14 @@ const numberOfGuests = ref(1);
 
 const amountToPay = ref(0);
 
+function handleChange() {
+  let slider = document.getElementsByClassName("slider")[0];
+  console.log(slider);
+  console.log(slider.value);
+  numberOfGuests.value = Number(slider.value);
+  calculateAmountToPay();
+}
+
 function handleClick(button) {
   if (button === ".") {
     if (billTotal.value.includes(".")) {
@@ -56,12 +64,12 @@ function divideBy(number){
 </script>
 
 <template>
-  <body className="body">
+  <div className="app-container">
     <section className="heading-container">
       <h1 className="heading">Split the Bill!</h1>
     </section>
     <section className="value-container">
-      <h3>Bill : £{{ billTotal }}</h3>
+      <h3>User Input : £{{ billTotal }}</h3>
       <h3>Bill : £{{ billCurrency }}</h3>
       <h3>Split Between : {{ numberOfGuests }}</h3>
       <h3>To Pay : £{{ amountToPay }}</h3>
@@ -89,20 +97,28 @@ function divideBy(number){
       <button @click="divideBy(4)" className="division-button">4</button>
       <button @click="divideBy(5)" className="division-button">5</button>
     </section>
-  </body>
+    <section className="slider-container">
+      <input
+        type="range"
+        min="1"
+        max="10"
+        value="1"
+        className="slider"
+        @input="handleChange"
+      />
+    </section>
+  </div>
 </template>
 
 <style scoped>
-.count-button {
-  color: blue;
-}
-.body {
+.app-container {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: gray;
 }
 .numpad-container {
   height: 50%;
@@ -118,5 +134,21 @@ function divideBy(number){
 }
 .grid-item {
   border: 1px solid blue;
+}
+
+.slider-container {
+  width: 50%;
+}
+
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
 }
 </style>
