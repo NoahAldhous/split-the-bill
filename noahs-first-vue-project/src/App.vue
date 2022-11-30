@@ -1,13 +1,15 @@
 <script setup>
 import { ref } from "vue";
 
-const billTotal = ref("0");
+const userInput = ref("0");
 
-const billCurrency = ref(Number(billTotal.value).toFixed(2));
+const billCurrency = ref(Number(userInput.value).toFixed(2));
 
 const numberOfGuests = ref(1);
 
 const amountToPay = ref(0);
+
+const serviceCharge = ref(0);
 
 function handleChange() {
   let slider = document.getElementsByClassName("slider")[0];
@@ -17,49 +19,60 @@ function handleChange() {
   calculateAmountToPay();
 }
 
+function changeServiceCharge(button){
+  serviceCharge.value = Number(button);
+  calculateBill();
+}
+
 function handleClick(button) {
   if (button === ".") {
-    if (billTotal.value.includes(".")) {
-      console.log(`${billTotal.value} includes .`);
+    if (userInput.value.includes(".")) {
+      console.log(`${userInput.value} includes .`);
       return null;
     } else {
-      billTotal.value = billTotal.value + button;
+      userInput.value = userInput.value + button;
     }
-  } else if (!billTotal.value) {
-    billTotal.value = "0";
+  } else if (!userInput.value) {
+    userInput.value = "0";
   } else if (button == "del") {
-    if (billTotal.value === "0") {
-      billTotal.value = "0";
+    if (userInput.value === "0") {
+      userInput.value = "0";
     } else {
-      billTotal.value = billTotal.value.slice(0, -1);
-      if (!billTotal.value) {
-        billTotal.value = "0";
+      userInput.value = userInput.value.slice(0, -1);
+      if (!userInput.value) {
+        userInput.value = "0";
       }
     }
-  } else if (billTotal.value === "0") {
-    billTotal.value = button;
-  } else if (/^[0-9]+\.[0-9]{2,}/g.test(billTotal.value)) {
+  } else if (userInput.value === "0") {
+    userInput.value = button;
+  } else if (/^[0-9]+\.[0-9]{2,}/g.test(userInput.value)) {
     console.log("its a match");
     return null;
   } else {
-    billTotal.value = billTotal.value + button;
+    userInput.value = userInput.value + button;
   }
   calculateAmountToPay();
-  convertInputToCurrency();
-  console.log(`${billTotal.value}`);
+  calculateBill();
 }
 
-function convertInputToCurrency() {
-  billCurrency.value = Number(billTotal.value).toFixed(2);
+function calculateBill() {
+  let billWithoutTip = Number(userInput.value).toFixed(2);
+  let tip = 0;
+  if (serviceCharge.value) {
+    tip = Number((billWithoutTip / 100) * serviceCharge.value).toFixed(2);
+    console.log(tip);
+    Number(tip);
+    billCurrency.value = Number(billWithoutTip) + Number(tip);
+    Number(billCurrency.value).toFixed(2);
+  } else {
+    billCurrency.value = Number(billWithoutTip);
+    Number(billCurrency.value).toFixed(2);
+  }
+  calculateAmountToPay();
 }
 
 function calculateAmountToPay() {
-  amountToPay.value = Number(billTotal.value / numberOfGuests.value).toFixed(2);
-}
-
-function divideBy(number){
-  numberOfGuests.value = number;
-  calculateAmountToPay();
+  amountToPay.value = Number(billCurrency.value / numberOfGuests.value).toFixed(2);
 }
 </script>
 
@@ -69,7 +82,46 @@ function divideBy(number){
       <h1 className="heading">Split the Bill!</h1>
     </section>
     <section className="value-container">
-      <h3>User Input : £{{ billTotal }}</h3>
+      <h3>User Input : £{{ userInput }}</h3>
+      <h3>Service : {{ serviceCharge }}%</h3>
+      <section className="service-charge-container">
+        <button
+          className="service-charge-button"
+          @click="changeServiceCharge(0)"
+        >
+          0%
+        </button>
+        <button
+          className="service-charge-button"
+          @click="changeServiceCharge(5)"
+        >
+          5%
+        </button>
+        <button
+          className="service-charge-button"
+          @click="changeServiceCharge(10)"
+        >
+          10%
+        </button>
+        <button
+          className="service-charge-button"
+          @click="changeServiceCharge(12)"
+        >
+          12%
+        </button>
+        <button
+          className="service-charge-button"
+          @click="changeServiceCharge(15)"
+        >
+          15%
+        </button>
+        <button
+          className="service-charge-button"
+          @click="changeServiceCharge(20)"
+        >
+          20%
+        </button>
+      </section>
       <h3>Bill : £{{ billCurrency }}</h3>
       <h3>Split Between : {{ numberOfGuests }}</h3>
       <h3>To Pay : £{{ amountToPay }}</h3>
@@ -89,13 +141,6 @@ function divideBy(number){
         <button @click="handleClick('0')" className="grid-item">0</button>
         <button @click="handleClick('del')" className="grid-item">del</button>
       </div>
-    </section>
-    <section className="division-container">
-      <button @click="divideBy(1)" className="division-button">1</button>
-      <button @click="divideBy(2)" className="division-button">2</button>
-      <button @click="divideBy(3)" className="division-button">3</button>
-      <button @click="divideBy(4)" className="division-button">4</button>
-      <button @click="divideBy(5)" className="division-button">5</button>
     </section>
     <section className="slider-container">
       <input
