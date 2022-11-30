@@ -63,10 +63,10 @@ function calculateBill() {
     console.log(tip);
     Number(tip);
     billCurrency.value = Number(billWithoutTip) + Number(tip);
-    Number(billCurrency.value).toFixed(2);
+    billCurrency.value = Number(billCurrency.value).toFixed(2);
   } else {
     billCurrency.value = Number(billWithoutTip);
-    Number(billCurrency.value).toFixed(2);
+    billCurrency.value = Number(billCurrency.value).toFixed(2);
   }
   calculateAmountToPay();
 }
