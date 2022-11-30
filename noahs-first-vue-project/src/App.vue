@@ -79,121 +79,207 @@ function calculateAmountToPay() {
 <template>
   <div className="app-container">
     <section className="heading-container">
-      <h1 className="heading">Split the Bill!</h1>
+      <h1 className="heading">Split the Bill</h1>
     </section>
     <section className="value-container">
-      <h3>User Input : £{{ userInput }}</h3>
-      <h3>Service : {{ serviceCharge }}%</h3>
-      <section className="service-charge-container">
-        <button
-          className="service-charge-button"
-          @click="changeServiceCharge(0)"
-        >
-          0%
-        </button>
-        <button
-          className="service-charge-button"
-          @click="changeServiceCharge(5)"
-        >
-          5%
-        </button>
-        <button
-          className="service-charge-button"
-          @click="changeServiceCharge(10)"
-        >
-          10%
-        </button>
-        <button
-          className="service-charge-button"
-          @click="changeServiceCharge(12)"
-        >
-          12%
-        </button>
-        <button
-          className="service-charge-button"
-          @click="changeServiceCharge(15)"
-        >
-          15%
-        </button>
-        <button
-          className="service-charge-button"
-          @click="changeServiceCharge(20)"
-        >
-          20%
-        </button>
+      <section className="sub-total-container">
+        <h3 className="sub-heading">Sub-total : £{{ userInput }}</h3>
+        <div className="grid-container">
+          <button @click="handleClick('1')" className="grid-item">1</button>
+          <button @click="handleClick('2')" className="grid-item">2</button>
+          <button @click="handleClick('3')" className="grid-item">3</button>
+          <button @click="handleClick('4')" className="grid-item">4</button>
+          <button @click="handleClick('5')" className="grid-item">5</button>
+          <button @click="handleClick('6')" className="grid-item">6</button>
+          <button @click="handleClick('7')" className="grid-item">7</button>
+          <button @click="handleClick('8')" className="grid-item">8</button>
+          <button @click="handleClick('9')" className="grid-item">9</button>
+          <button @click="handleClick('.')" className="grid-item">.</button>
+          <button @click="handleClick('0')" className="grid-item">0</button>
+          <button @click="handleClick('del')" className="grid-item">del</button>
+        </div>
       </section>
-      <h3>Bill : £{{ billCurrency }}</h3>
-      <h3>Split Between : {{ numberOfGuests }}</h3>
-      <h3>To Pay : £{{ amountToPay }}</h3>
-    </section>
-    <section className="numpad-container">
-      <div className="grid-container">
-        <button @click="handleClick('1')" className="grid-item">1</button>
-        <button @click="handleClick('2')" className="grid-item">2</button>
-        <button @click="handleClick('3')" className="grid-item">3</button>
-        <button @click="handleClick('4')" className="grid-item">4</button>
-        <button @click="handleClick('5')" className="grid-item">5</button>
-        <button @click="handleClick('6')" className="grid-item">6</button>
-        <button @click="handleClick('7')" className="grid-item">7</button>
-        <button @click="handleClick('8')" className="grid-item">8</button>
-        <button @click="handleClick('9')" className="grid-item">9</button>
-        <button @click="handleClick('.')" className="grid-item">.</button>
-        <button @click="handleClick('0')" className="grid-item">0</button>
-        <button @click="handleClick('del')" className="grid-item">del</button>
-      </div>
-    </section>
-    <section className="slider-container">
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value="1"
-        className="slider"
-        @input="handleChange"
-      />
+      <section className="service-container">
+        <h3 className="sub-heading">Service : {{ serviceCharge }}%</h3>
+        <section className="service-charge-button-container">
+          <button
+            className="service-charge-button"
+            @click="changeServiceCharge(0)"
+          >
+            0%
+          </button>
+          <button
+            className="service-charge-button"
+            @click="changeServiceCharge(5)"
+          >
+            5%
+          </button>
+          <button
+            className="service-charge-button"
+            @click="changeServiceCharge(10)"
+          >
+            10%
+          </button>
+          <button
+            className="service-charge-button"
+            @click="changeServiceCharge(12)"
+          >
+            12%
+          </button>
+          <button
+            className="service-charge-button"
+            @click="changeServiceCharge(15)"
+          >
+            15%
+          </button>
+          <button
+            className="service-charge-button"
+            @click="changeServiceCharge(20)"
+          >
+            20%
+          </button>
+        </section>
+        <h3 className="sub-heading">Total : £{{ billCurrency }}</h3>
+      </section>
+      <section className="split-container">
+        <h3 className="sub-heading">Split Between : {{ numberOfGuests }}</h3>
+        <section className="slider-container">
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value="1"
+            className="slider"
+            @input="handleChange"
+          />
+        </section>
+      </section>
+      <section className="payment-container">
+        <h3 className="sub-heading">Each Pays : £{{ amountToPay }}</h3>
+      </section>
     </section>
   </div>
 </template>
 
 <style scoped>
 .app-container {
-  width: 100vw;
-  height: 100vh;
+  width: 95vw;
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: var(--background-color);
+  border: 2px solid var(--dark-color);
+}
+.value-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--soft-color);
+  align-items: center;
+  justify-content: space-evenly;
+}
+.heading-container {
+  background-color: var(--dark-color);
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+}
+.heading {
+  color: var(--highlight-color);
+}
+.sub-total-container {
+  background-color: var(--soft-color);
+  color: var(--dark-color);
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: gray;
-}
-.numpad-container {
-  height: 50%;
-  width: 50%;
 }
 .grid-container {
-  border: 1px solid red;
-  height: 100%;
-  width: 100%;
+  height: 80vw;
+  width: 60vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
 }
 .grid-item {
-  border: 1px solid blue;
+  border: none;
+  background-color: var(--dark-color);
+  /* clip-path: circle(); */
+  border-radius: 50%;
+  margin: 5%;
+  color: var(--soft-color);
 }
-
+.service-container {
+  background-color: var(--dark-color);
+  color: var(--soft-color);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.service-charge-button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+}
+.service-charge-button {
+  border: none;
+  background-color: var(--soft-color);
+  color: var(--dark-color);
+  width: 16%;
+}
+.split-container {
+  background-color: var(--soft-color);
+  color: var(--dark-color);
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .slider-container {
-  width: 50%;
+  width: 100%;
 }
 
 .slider {
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
-  height: 25px; /* Specified height */
-  background: #d3d3d3; /* Grey background */
+  height: 15px;
+  border-radius: 5px; 
+  background: var(--dark-color); /* Grey background */
   outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
   transition: opacity 0.2s;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--highlight-color);
+  cursor: pointer;
+}
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--hightlight-color);
+  cursor: pointer;
+}
+.payment-container {
+  background-color: var(--dark-color);
+  color: var(--highlight-color);
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 </style>
