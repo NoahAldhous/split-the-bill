@@ -19,7 +19,12 @@ function handleChange() {
   calculateAmountToPay();
 }
 
-function changeServiceCharge(button){
+function changeServiceCharge(button) {
+  let buttonClass = "--" + button;
+  let clickedButton = document.getElementsByClassName(buttonClass)[0];
+  let activeButton = document.getElementsByClassName("active")[0];
+  activeButton.classList.remove("active");
+  clickedButton.classList.add("active");
   serviceCharge.value = Number(button);
   calculateBill();
 }
@@ -102,44 +107,44 @@ function calculateAmountToPay() {
       <section className="service-container">
         <section className="service-charge-button-container">
           <button
-            className="service-charge-button"
+            className="service-charge-button --0 active"
             @click="changeServiceCharge(0)"
           >
             0%
           </button>
           <button
-            className="service-charge-button"
+            className="service-charge-button --5"
             @click="changeServiceCharge(5)"
           >
             5%
           </button>
           <button
-            className="service-charge-button"
+            className="service-charge-button --10"
             @click="changeServiceCharge(10)"
           >
             10%
           </button>
           <button
-            className="service-charge-button"
+            className="service-charge-button --12"
             @click="changeServiceCharge(12)"
           >
             12%
           </button>
           <button
-            className="service-charge-button"
+            className="service-charge-button --15"
             @click="changeServiceCharge(15)"
           >
             15%
           </button>
           <button
-            className="service-charge-button"
+            className="service-charge-button --20"
             @click="changeServiceCharge(20)"
           >
             20%
           </button>
         </section>
         <section className="service-text-container">
-          <h3 className="sub-heading">Service : {{ serviceCharge }}%</h3>
+          <!-- <h3 className="sub-heading">Service : {{ serviceCharge }}%</h3> -->
           <h3 className="sub-heading">Total : £{{ billCurrency }}</h3>
         </section>
       </section>
@@ -263,6 +268,9 @@ function calculateAmountToPay() {
   border-radius: 10px;
   font-size: 4vw;
   font-weight: bolder;
+}
+.active {
+  background-color: var(--highlight-color);
 }
 .split-container {
   background-color: var(--soft-color);
