@@ -222,10 +222,14 @@ function calculateAmountToPay() {
 .grid-item {
   border: none;
   background-color: var(--dark-color);
+  clip-path: circle();
   border-radius: 50%;
   margin: 5%;
   color: var(--soft-color);
-  font-size: 7vw;
+  font-size: 6vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .service-container {
   background-color: var(--dark-color);
