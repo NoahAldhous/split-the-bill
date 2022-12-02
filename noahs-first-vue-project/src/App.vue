@@ -32,7 +32,6 @@ function changeServiceCharge(button) {
 function handleClick(button) {
   if (button === ".") {
     if (userInput.value.includes(".")) {
-      console.log(`${userInput.value} includes .`);
       return null;
     } else {
       userInput.value = userInput.value + button;
@@ -51,13 +50,12 @@ function handleClick(button) {
   } else if (userInput.value === "0") {
     userInput.value = button;
   } else if (/^[0-9]+\.[0-9]{2,}/g.test(userInput.value)) {
-    console.log("its a match");
     return null;
   } else {
     userInput.value = userInput.value + button;
   }
-  calculateAmountToPay();
   calculateBill();
+  calculateAmountToPay();
 }
 
 function calculateBill() {
@@ -65,7 +63,6 @@ function calculateBill() {
   let tip = 0;
   if (serviceCharge.value) {
     tip = Number((billWithoutTip / 100) * serviceCharge.value).toFixed(2);
-    console.log(tip);
     Number(tip);
     billCurrency.value = Number(billWithoutTip) + Number(tip);
     billCurrency.value = Number(billCurrency.value).toFixed(2);
@@ -77,7 +74,9 @@ function calculateBill() {
 }
 
 function calculateAmountToPay() {
-  amountToPay.value = Number(billCurrency.value / numberOfGuests.value).toFixed(2);
+  amountToPay.value = Number(billCurrency.value / numberOfGuests.value).toFixed(
+    2
+  );
 }
 </script>
 
@@ -169,9 +168,6 @@ function calculateAmountToPay() {
 </template>
 
 <style scoped>
-.app {
-  padding-top: 20%;
-}
 .app-container {
   width: 95vw;
   height: 85vh;
@@ -323,5 +319,40 @@ function calculateAmountToPay() {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+/* tablet and desktop screens */
+@media only screen and (min-width: 650px) {
+  .app-container {
+    width: 30%;
+    height: 90%;
+    margin: 0;
+  }
+  .heading {
+    font-size: 3vw;
+  }
+  .sub-heading {
+    font-size: 2vw;
+  }
+  .grid-container {
+    height: 30vw;
+    width: 22.5vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+  .grid-item {
+    font-size: 3vw;
+    cursor: pointer;
+  }
+  .grid-item:hover {
+    color: var(--highlight-color);
+    transition: color border 0.5s;
+  }
+  .service-charge-button {
+    height: 70%;
+    width: 16%;
+    font-size: 1vw;
+    cursor: pointer;
+  }
 }
 </style>
