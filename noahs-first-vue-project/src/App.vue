@@ -79,7 +79,7 @@ function calculateAmountToPay() {
 <template className="app">
   <div className="app-container">
     <section className="heading-container">
-      <h1 className="heading">Split the Bill</h1>
+      <h1 className="heading">SPLIT THE BILL</h1>
     </section>
     <section className="value-container">
       <section className="sub-total-container">
@@ -171,7 +171,6 @@ function calculateAmountToPay() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
   background-color: var(--background-color);
   border: 2px solid var(--dark-color);
   margin-top: 10%;
@@ -179,21 +178,21 @@ function calculateAmountToPay() {
 }
 .value-container {
   width: 100%;
-  height: 100%;
+  height: 92%;
   display: flex;
   flex-direction: column;
   background-color: var(--soft-color);
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .heading-container {
   background-color: var(--dark-color);
   width: 100%;
-  height: 10%;
+  height: 8%;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
+  font-weight: bolder;
 }
 .heading {
   color: var(--highlight-color);
@@ -202,6 +201,7 @@ function calculateAmountToPay() {
   background-color: var(--soft-color);
   color: var(--dark-color);
   width: 100%;
+  height: 65%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -226,6 +226,7 @@ function calculateAmountToPay() {
   background-color: var(--dark-color);
   color: var(--soft-color);
   width: 100%;
+  height: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -233,21 +234,29 @@ function calculateAmountToPay() {
 .service-charge-button-container {
   display: flex;
   justify-content: space-between;
-  width: 85%;
+  align-items: center;
+  width: 95%;
+  height: 50%;
 }
 .service-charge-button {
   border: none;
+  padding: 0;
   background-color: var(--soft-color);
   color: var(--dark-color);
-  width: 16%;
+  width: 15%;
+  height: 50%;
+  box-shadow: 1px 1px 1px 1px black;
+  border-radius: 10px;
 }
 .split-container {
   background-color: var(--soft-color);
   color: var(--dark-color);
   width: 85%;
+  height: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .slider-container {
   width: 100%;
@@ -284,7 +293,9 @@ function calculateAmountToPay() {
   background-color: var(--dark-color);
   color: var(--highlight-color);
   width: 100%;
+  height: 5%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 </style>

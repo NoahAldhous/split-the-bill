@@ -4,6 +4,7 @@
 --highlight-color: #FE9000;
 --dark-color: #001A29;
 --soft-color: #7389AE;
+--app-font: "Quicksand";
 }
 
 @media (prefers-color-scheme: dark) {
