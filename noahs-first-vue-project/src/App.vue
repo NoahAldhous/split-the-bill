@@ -227,9 +227,6 @@ function calculateAmountToPay() {
   margin: 5%;
   color: var(--soft-color);
   font-size: 7vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .service-container {
   background-color: var(--dark-color);
