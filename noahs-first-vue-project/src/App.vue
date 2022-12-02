@@ -76,7 +76,7 @@ function calculateAmountToPay() {
 }
 </script>
 
-<template>
+<template className="app">
   <div className="app-container">
     <section className="heading-container">
       <h1 className="heading">Split the Bill</h1>
@@ -162,15 +162,20 @@ function calculateAmountToPay() {
 </template>
 
 <style scoped>
+.app {
+  padding-top: 20%;
+}
 .app-container {
   width: 95vw;
-  height: 95vh;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   background-color: var(--background-color);
   border: 2px solid var(--dark-color);
+  margin-top: 10%;
+  margin-bottom: 20%;
 }
 .value-container {
   width: 100%;
