@@ -180,7 +180,7 @@ function calculateAmountToPay() {
 }
 .value-container {
   width: 100%;
-  height: 92%;
+  height: 93%;
   display: flex;
   flex-direction: column;
   background-color: var(--soft-color);
@@ -190,7 +190,7 @@ function calculateAmountToPay() {
 .heading-container {
   background-color: var(--dark-color);
   width: 100%;
-  height: 8%;
+  height: 7%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,6 +198,9 @@ function calculateAmountToPay() {
 }
 .heading {
   color: var(--highlight-color);
+}
+.sub-heading {
+  font-size: 6vw;
 }
 .sub-total-container {
   background-color: var(--soft-color);
@@ -223,6 +226,10 @@ function calculateAmountToPay() {
   border-radius: 50%;
   margin: 5%;
   color: var(--soft-color);
+  font-size: 7vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .service-container {
   background-color: var(--dark-color);
@@ -254,6 +261,8 @@ function calculateAmountToPay() {
   height: 50%;
   box-shadow: 1px 1px 1px 1px black;
   border-radius: 10px;
+  font-size: 4vw;
+  font-weight: bolder;
 }
 .split-container {
   background-color: var(--soft-color);
