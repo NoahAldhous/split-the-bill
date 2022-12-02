@@ -323,8 +323,8 @@ function calculateAmountToPay() {
 /* tablet and desktop screens */
 @media only screen and (min-width: 650px) {
   .app-container {
-    width: 30%;
-    height: 90%;
+    width: 35vw;
+    height: 99vh;
     margin: 0;
   }
   .heading {
@@ -341,7 +341,7 @@ function calculateAmountToPay() {
     grid-template-rows: repeat(4, 1fr);
   }
   .grid-item {
-    font-size: 3vw;
+    font-size: 2.3vw;
     cursor: pointer;
   }
   .grid-item:hover {
