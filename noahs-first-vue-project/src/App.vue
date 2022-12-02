@@ -100,7 +100,6 @@ function calculateAmountToPay() {
         </div>
       </section>
       <section className="service-container">
-        <h3 className="sub-heading">Service : {{ serviceCharge }}%</h3>
         <section className="service-charge-button-container">
           <button
             className="service-charge-button"
@@ -139,7 +138,10 @@ function calculateAmountToPay() {
             20%
           </button>
         </section>
-        <h3 className="sub-heading">Total : £{{ billCurrency }}</h3>
+        <section className="service-text-container">
+          <h3 className="sub-heading">Service : {{ serviceCharge }}%</h3>
+          <h3 className="sub-heading">Total : £{{ billCurrency }}</h3>
+        </section>
       </section>
       <section className="split-container">
         <h3 className="sub-heading">Split Between : {{ numberOfGuests }}</h3>
@@ -226,17 +228,22 @@ function calculateAmountToPay() {
   background-color: var(--dark-color);
   color: var(--soft-color);
   width: 100%;
-  height: 20%;
+  height: 15%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.service-text-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 .service-charge-button-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 95%;
-  height: 50%;
+  height: 60%;
 }
 .service-charge-button {
   border: none;
