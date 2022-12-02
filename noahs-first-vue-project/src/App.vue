@@ -200,7 +200,7 @@ function calculateAmountToPay() {
   color: var(--highlight-color);
 }
 .sub-heading {
-  font-size: 6vw;
+  font-size: 5.5vw;
 }
 .sub-total-container {
   background-color: var(--soft-color);
