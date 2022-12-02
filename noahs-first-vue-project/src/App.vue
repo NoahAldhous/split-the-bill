@@ -268,6 +268,7 @@ function calculateAmountToPay() {
   border-radius: 10px;
   font-size: 4vw;
   font-weight: bolder;
+  transition: 0.3s;
 }
 .active {
   background-color: var(--highlight-color);
@@ -300,8 +301,8 @@ function calculateAmountToPay() {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: var(--highlight-color);
   cursor: pointer;
