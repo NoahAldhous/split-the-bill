@@ -88,7 +88,7 @@ function calculateAmountToPay() {
     </section>
     <section className="value-container">
       <section className="sub-total-container">
-        <h3 className="sub-heading">Sub-total : £{{ userInput }}</h3>
+        <!-- <h3 className="sub-heading">Sub-total : £{{ userInput }}</h3> -->
         <div className="grid-container">
           <button @click="handleClick('1')" className="grid-item">1</button>
           <button @click="handleClick('2')" className="grid-item">2</button>
@@ -249,6 +249,7 @@ function calculateAmountToPay() {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  color: var(--highlight-color);
 }
 .service-charge-button-container {
   display: flex;
