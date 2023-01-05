@@ -31,7 +31,9 @@ function changeServiceCharge(button) {
 }
 
 function handleClick(button) {
-  if (button === ".") {
+  if (button === "C") {
+    userInput.value = "0";
+  } else if (button === ".") {
     if (userInput.value.includes(".")) {
       return null;
     } else {
@@ -99,8 +101,11 @@ function calculateAmountToPay() {
           <button @click="handleClick('7')" className="grid-item">7</button>
           <button @click="handleClick('8')" className="grid-item">8</button>
           <button @click="handleClick('9')" className="grid-item">9</button>
-          <button @click="handleClick('.')" className="grid-item">.</button>
+          <div />
           <button @click="handleClick('0')" className="grid-item">0</button>
+          <div />
+          <button @click="handleClick('C')" className="grid-item">C</button>
+          <button @click="handleClick('.')" className="grid-item">.</button>
           <button @click="handleClick('del')" className="grid-item">del</button>
         </div>
       </section>
@@ -220,7 +225,7 @@ function calculateAmountToPay() {
   width: 60vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
 }
 .grid-item {
   border: none;
@@ -230,6 +235,7 @@ function calculateAmountToPay() {
   margin: 5%;
   color: var(--soft-color);
   font-size: 6vw;
+  font-family: var(--app-font);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -265,6 +271,7 @@ function calculateAmountToPay() {
   height: 50%;
   box-shadow: 1px 1px 1px 1px black;
   border-radius: 10px;
+  font-family: var(--app-font);
   font-size: 4vw;
   font-weight: bolder;
   transition: 0.3s;
@@ -340,10 +347,10 @@ function calculateAmountToPay() {
     width: 22.5vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
   }
   .grid-item {
-    font-size: 2.3vw;
+    font-size: 2.1vw;
     cursor: pointer;
   }
   .grid-item:hover {
