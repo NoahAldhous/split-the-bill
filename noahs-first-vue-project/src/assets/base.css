@@ -1,9 +1,9 @@
 /* color variables */
 :root {
---background-color: #ffff;
---highlight-color: #FE9000;
---dark-color: #001A29;
---soft-color: #7389AE;
+--background-color: grey;
+--highlight-color: #FFC800;
+--dark-color: #191C24;
+--soft-color: #98D2EB;
 --app-font: "Quicksand";
 }
 
