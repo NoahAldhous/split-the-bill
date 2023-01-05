@@ -272,7 +272,7 @@ function calculateAmountToPay() {
   box-shadow: 1px 1px 1px 1px black;
   border-radius: 10px;
   font-family: var(--app-font);
-  font-size: 4vw;
+  font-size: 3.5vw;
   font-weight: bolder;
   transition: 0.3s;
 }
