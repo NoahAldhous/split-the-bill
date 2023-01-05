@@ -85,8 +85,11 @@ function calculateAmountToPay() {
   );
   if ( Number(amountToPay.value) * Number(numberOfGuests.value) !== Number(billCurrency.value)) {
     evenSplit.value = false;
-    remainder.value = (Number(billCurrency.value)-(Number(amountToPay.value) * Number(numberOfGuests.value))).toFixed(2);
+    remainder.value = (Number(billCurrency.value)-(Number(amountToPay.value) * Number(numberOfGuests.value)));
     oddOneOut.value = Number(Number(amountToPay.value) + Number(remainder.value)).toFixed(2);
+    if ( oddOneOut.value == amountToPay.value){
+      evenSplit.value = true;
+    }
   } else {
     evenSplit.value = true;
   }
