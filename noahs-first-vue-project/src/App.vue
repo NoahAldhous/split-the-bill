@@ -221,7 +221,7 @@ function calculateAmountToPay() {
   justify-content: center;
 }
 .grid-container {
-  height: 80vw;
+  height: 85vw;
   width: 60vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -232,7 +232,7 @@ function calculateAmountToPay() {
   background-color: var(--dark-color);
   clip-path: circle();
   border-radius: 50%;
-  margin: 5%;
+  margin: 3%;
   color: var(--soft-color);
   font-size: 6vw;
   font-family: var(--app-font);
