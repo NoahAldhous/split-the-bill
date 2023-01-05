@@ -102,6 +102,9 @@ function calculateAmountToPay() {
       <h1 className="heading">SPLIT THE BILL</h1>
     </section>
     <section className="value-container">
+      <section className="total-container">
+        <h3 className="sub-heading">Total : £{{ billCurrency }}</h3>
+      </section>
       <section className="sub-total-container">
         <!-- <h3 className="sub-heading">Sub-total : £{{ userInput }}</h3> -->
         <div className="grid-container">
@@ -123,6 +126,7 @@ function calculateAmountToPay() {
         </div>
       </section>
       <section className="service-container">
+        <h3 className="service-sub-heading">Add a tip?</h3>
         <section className="service-charge-button-container">
           <button
             className="service-charge-button --0 active"
@@ -161,10 +165,6 @@ function calculateAmountToPay() {
             20%
           </button>
         </section>
-        <section className="service-text-container">
-          <!-- <h3 className="sub-heading">Service : {{ serviceCharge }}%</h3> -->
-          <h3 className="sub-heading">Total : £{{ billCurrency }}</h3>
-        </section>
       </section>
       <section className="split-container">
         <h3 className="sub-heading">Split Between : {{ numberOfGuests }}</h3>
@@ -179,9 +179,12 @@ function calculateAmountToPay() {
           />
         </section>
       </section>
-      <section className="payment-container">
-        <h3 v-if="evenSplit" className="sub-heading">Each Pays : £{{ amountToPay }}</h3>
-        <h3 v-else className="sub-heading">One Pays : £{{oddOneOut}} Rest Pay : £{{ amountToPay }}</h3>
+      <section v-if="evenSplit" className="payment-container">
+        <h3 className="sub-heading">Each Pays : £{{ amountToPay }}</h3>
+      </section>
+      <section v-else className="payment-container">
+        <h3 className="sub-heading">One Pays : £{{ oddOneOut }}</h3>
+        <h3 className="sub-heading">Rest Pay : £{{ amountToPay }}</h3>
       </section>
     </section>
   </div>
@@ -202,7 +205,7 @@ function calculateAmountToPay() {
 }
 .value-container {
   width: 100%;
-  height: 93%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   background-color: var(--soft-color);
@@ -212,7 +215,7 @@ function calculateAmountToPay() {
 .heading-container {
   background-color: var(--dark-color);
   width: 100%;
-  height: 7%;
+  height: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -228,14 +231,14 @@ function calculateAmountToPay() {
   background-color: var(--soft-color);
   color: var(--dark-color);
   width: 100%;
-  height: 65%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 .grid-container {
-  height: 85vw;
+  height: 80vw;
   width: 60vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -261,13 +264,18 @@ function calculateAmountToPay() {
   height: 15%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
-.service-text-container {
+.service-sub-heading {
+  color: var(--highlight-color);
+}
+.total-container {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
   color: var(--highlight-color);
+  background-color: var(--dark-color);
 }
 .service-charge-button-container {
   display: flex;
@@ -338,8 +346,9 @@ function calculateAmountToPay() {
   background-color: var(--dark-color);
   color: var(--highlight-color);
   width: 100%;
-  height: 5%;
+  height: 15%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
