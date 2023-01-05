@@ -11,11 +11,14 @@ const amountToPay = ref(0);
 
 const serviceCharge = ref(0);
 
+const evenSplit = ref(true);
+
+const remainder = ref(0);
+
+const oddOneOut = ref("");
 
 function handleChange() {
   let slider = document.getElementsByClassName("slider")[0];
-  console.log(slider);
-  console.log(slider.value);
   numberOfGuests.value = Number(slider.value);
   calculateAmountToPay();
 }
@@ -80,6 +83,13 @@ function calculateAmountToPay() {
   amountToPay.value = Number(billCurrency.value / numberOfGuests.value).toFixed(
     2
   );
+  if ( Number(amountToPay.value) * Number(numberOfGuests.value) !== Number(billCurrency.value)) {
+    evenSplit.value = false;
+    remainder.value = (Number(billCurrency.value)-(Number(amountToPay.value) * Number(numberOfGuests.value))).toFixed(2);
+    oddOneOut.value = Number(Number(amountToPay.value) + Number(remainder.value)).toFixed(2);
+  } else {
+    evenSplit.value = true;
+  }
 }
 </script>
 
@@ -167,7 +177,8 @@ function calculateAmountToPay() {
         </section>
       </section>
       <section className="payment-container">
-        <h3 className="sub-heading">Each Pays : £{{ amountToPay }}</h3>
+        <h3 v-if="evenSplit" className="sub-heading">Each Pays : £{{ amountToPay }}</h3>
+        <h3 v-else className="sub-heading">One Pays : £{{oddOneOut}} Rest Pay : £{{ amountToPay }}</h3>
       </section>
     </section>
   </div>
@@ -208,7 +219,7 @@ function calculateAmountToPay() {
   color: var(--highlight-color);
 }
 .sub-heading {
-  font-size: 5.5vw;
+  font-size: 5.1vw;
 }
 .sub-total-container {
   background-color: var(--soft-color);
