@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import $ from "jquery";
-import jQuery from "jquery";
+import { $ } from "jquery";
 
 const userInput = ref("0");
 
@@ -28,8 +27,8 @@ $(document).ready(function(){
         e.preventDefault(); // double tap - prevent the zoom
         // also synthesize click events we just swallowed up
         $(this).trigger('click').trigger('click');
-        });
-    };
+     });
+  };
 });
 
 function handleChange() {
@@ -199,6 +198,7 @@ function calculateAmountToPay() {
   border: 2px solid var(--dark-color);
   margin-top: 10%;
   margin-bottom: 20%;
+  touch-action: manipulation;
 }
 .value-container {
   width: 100%;
