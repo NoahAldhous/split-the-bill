@@ -55,7 +55,9 @@ function handleClick(button) {
     }
   } else if (userInput.value === "0") {
     userInput.value = button;
-  } else if (/^[0-9]+\.[0-9]{2,}/g.test(userInput.value)) {
+  } else if (/^[0-9]+\.[0-9]{2,}/g.test(userInput.value) ||
+    userInput.value.length >= 7
+  ) {
     return null;
   } else {
     userInput.value = userInput.value + button;
