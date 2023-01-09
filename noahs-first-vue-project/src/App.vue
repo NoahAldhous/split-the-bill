@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 const userInput = ref("0");
 
-const billCurrency = ref(Number(userInput.value).toFixed(2));
+const unsplitBill = ref(Number(userInput.value).toFixed(2));
 
 const numberOfGuests = ref(1);
 
@@ -17,81 +17,117 @@ const remainder = ref(0);
 
 const oddOneOut = ref("");
 
-function handleChange() {
+//This function is called when the slider is moved.
+//Changes the numberOfGuests state to match the slider's value, then calls calculateAmountToPay
+//to update the values.
+function changeNumberOfGuests() {
   let slider = document.getElementsByClassName("slider")[0];
   numberOfGuests.value = Number(slider.value);
   calculateAmountToPay();
 }
 
-function changeServiceCharge(button) {
+//Called within changeServiceCharge.
+//This removes the class 'active' from the currently active button and adds it to the button that
+//called the function, changing the background and text color so the user knows which service charge
+//is being applied to the bill.
+function setActiveButton(button) {
   let buttonClass = "--" + button;
   let clickedButton = document.getElementsByClassName(buttonClass)[0];
   let activeButton = document.getElementsByClassName("active")[0];
   activeButton.classList.remove("active");
   clickedButton.classList.add("active");
+}
+
+//Called when a service charge button is clicked. calls setActiveButton and 
+//updates the service charge state.
+function changeServiceCharge(button) {
+  setActiveButton(button);
   serviceCharge.value = Number(button);
   calculateBill();
 }
 
 function handleClick(button) {
-  if (button === "C") {
+  //ensures userInput always has a default value of "0", to avoid elements displaying as undefined or null;
+  if (!userInput.value) {
     userInput.value = "0";
-  } else if (button === ".") {
-    if (userInput.value.includes(".")) {
-      return null;
-    } else {
-      userInput.value = userInput.value + button;
-    }
-  } else if (!userInput.value) {
-    userInput.value = "0";
-  } else if (button == "del") {
-    if (userInput.value === "0") {
-      userInput.value = "0";
-    } else {
-      userInput.value = userInput.value.slice(0, -1);
-      if (!userInput.value) {
-        userInput.value = "0";
-      }
-    }
-  } else if (userInput.value === "0") {
-    userInput.value = button;
-  } else if (/^[0-9]+\.[0-9]{2,}/g.test(userInput.value) ||
-    userInput.value.length >= 7
-  ) {
     return null;
   } else {
-    userInput.value = userInput.value + button;
+    //switch statement handles which button is being clicked;
+    switch (button) {
+      //if C button is clicked, reset userInput and serviceCharge to 0;
+      case "C":
+        userInput.value = "0";
+        changeServiceCharge("0");
+        break;
+      //if "." button is clicked and userInput does not already contain ".", add ".";
+      case ".":
+        if (!userInput.value.includes(".")) {
+          userInput.value += button;
+        } else {
+          return null;
+        }
+        break;
+      // if del button is clicked, and userInput is not 0,
+      //removes last character of string from userInput.
+      case "del":
+        if (userInput.value === "0") {
+          userInput.value = "0";
+        } else {
+          userInput.value = userInput.value.slice(0, -1);
+        }
+        break;
+      //default case handles buttons 0-9 being clicked
+      default:
+        //if userInput is currently 0 when button is clicked,
+        //current button value replaces userInput.
+        if (userInput.value === "0") {
+          userInput.value = button;
+          //if button is clicked and userInput is not already to 2 decimal places
+          //or 7 characters in length, button value is added to end of string, otherwise
+          //button click has no effect;
+        } else if (
+          !/^[0-9]+\.[0-9]{2,}/g.test(userInput.value) &&
+          userInput.value.length <= 6
+        ) {
+          userInput.value += button;
+        } else {
+          return null;
+        }
+    }
   }
   calculateBill();
-  calculateAmountToPay();
 }
 
 function calculateBill() {
-  let billWithoutTip = Number(userInput.value).toFixed(2);
-  let tip = 0;
-  if (serviceCharge.value) {
-    tip = Number((billWithoutTip / 100) * serviceCharge.value).toFixed(2);
-    Number(tip);
-    billCurrency.value = Number(billWithoutTip) + Number(tip);
-    billCurrency.value = Number(billCurrency.value).toFixed(2);
-  } else {
-    billCurrency.value = Number(billWithoutTip);
-    billCurrency.value = Number(billCurrency.value).toFixed(2);
-  }
+  let billWithoutTip = Number(userInput.value);
+  let tip = Number((billWithoutTip / 100) * serviceCharge.value).toFixed(2);
+  unsplitBill.value = Number(billWithoutTip + Number(tip)).toFixed(2);
+
   calculateAmountToPay();
 }
 
+function calculateUnevenSplit() {
+  evenSplit.value = false;
+  remainder.value =
+    Number(unsplitBill.value) -
+    Number(amountToPay.value) * Number(numberOfGuests.value);
+  oddOneOut.value = Number(
+    Number(amountToPay.value) + Number(remainder.value)
+  ).toFixed(2);
+  if (oddOneOut.value == amountToPay.value) {
+    evenSplit.value = true;
+  }
+}
+
 function calculateAmountToPay() {
-  amountToPay.value = Number(billCurrency.value / numberOfGuests.value).toFixed(
+  amountToPay.value = Number(unsplitBill.value / numberOfGuests.value).toFixed(
     2
   );
-  if ( Number(amountToPay.value) * Number(numberOfGuests.value) !== Number(billCurrency.value)) {
-    evenSplit.value = false;
-    remainder.value = (Number(billCurrency.value)-(Number(amountToPay.value) * Number(numberOfGuests.value)));
-    oddOneOut.value = Number(Number(amountToPay.value) + Number(remainder.value)).toFixed(2);
-    if ( oddOneOut.value == amountToPay.value){
-      evenSplit.value = true;
-    }
+  if (
+    Number(amountToPay.value) * Number(numberOfGuests.value) !==
+    Number(unsplitBill.value)
+  ) {
+    calculateUnevenSplit();
   } else {
     evenSplit.value = true;
   }
@@ -105,7 +141,7 @@ function calculateAmountToPay() {
     </section>
     <section className="value-container">
       <section className="total-container">
-        <h3 className="sub-heading">Total : £{{ billCurrency }}</h3>
+        <h3 className="sub-heading">Total : £{{ unsplitBill }}</h3>
       </section>
       <section className="sub-total-container">
         <!-- <h3 className="sub-heading">Sub-total : £{{ userInput }}</h3> -->
@@ -177,7 +213,7 @@ function calculateAmountToPay() {
             max="10"
             value="1"
             className="slider"
-            @input="handleChange"
+            @input="changeNumberOfGuests"
           />
         </section>
       </section>
