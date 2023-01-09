@@ -17,9 +17,9 @@ const remainder = ref(0);
 
 const oddOneOut = ref("");
 
-//This function is called when the slider is moved.
-//Changes the numberOfGuests state to match the slider's value, then calls calculateAmountToPay
-//to update the values.
+const buttonArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+//Called when the slider is moved.
 function changeNumberOfGuests() {
   let slider = document.getElementsByClassName("slider")[0];
   numberOfGuests.value = Number(slider.value);
@@ -38,7 +38,7 @@ function setActiveButton(button) {
   clickedButton.classList.add("active");
 }
 
-//Called when a service charge button is clicked. calls setActiveButton and 
+//Called when a service charge button is clicked. calls setActiveButton and
 //updates the service charge state.
 function changeServiceCharge(button) {
   setActiveButton(button);
@@ -95,11 +95,13 @@ function handleClick(button) {
         }
     }
   }
+  //always calls calculateBill to update unsplitBill and amountToPay states;
   calculateBill();
 }
 
 function calculateBill() {
   let billWithoutTip = Number(userInput.value);
+  //calculating tip as a percentage of the userInput
   let tip = Number((billWithoutTip / 100) * serviceCharge.value).toFixed(2);
   unsplitBill.value = Number(billWithoutTip + Number(tip)).toFixed(2);
 
@@ -107,13 +109,18 @@ function calculateBill() {
 }
 
 function calculateUnevenSplit() {
+  //state change triggers a conditional render of an additional element to highlight that
+  //the bill is not split evenly.
   evenSplit.value = false;
+  //calculates the amount left over from splitting the bill that is then added to the oddOneOut value.
   remainder.value =
     Number(unsplitBill.value) -
     Number(amountToPay.value) * Number(numberOfGuests.value);
   oddOneOut.value = Number(
     Number(amountToPay.value) + Number(remainder.value)
   ).toFixed(2);
+  // fixes a bug where with some calculations, the bill was not being split evenly despite amount to pay and
+  //odd one out having the same value.
   if (oddOneOut.value == amountToPay.value) {
     evenSplit.value = true;
   }
@@ -123,12 +130,15 @@ function calculateAmountToPay() {
   amountToPay.value = Number(unsplitBill.value / numberOfGuests.value).toFixed(
     2
   );
+  //checks if bill can be split evenly between numberOfGuests. If not,
+  //calls CalculateUnevenSplit.
   if (
     Number(amountToPay.value) * Number(numberOfGuests.value) !==
     Number(unsplitBill.value)
   ) {
     calculateUnevenSplit();
   } else {
+    //evenSplit set back to true to trigger conditional render.
     evenSplit.value = true;
   }
 }
@@ -144,17 +154,15 @@ function calculateAmountToPay() {
         <h3 className="sub-heading">Total : £{{ unsplitBill }}</h3>
       </section>
       <section className="sub-total-container">
-        <!-- <h3 className="sub-heading">Sub-total : £{{ userInput }}</h3> -->
         <div className="grid-container">
-          <button @click="handleClick('1')" className="grid-item">1</button>
-          <button @click="handleClick('2')" className="grid-item">2</button>
-          <button @click="handleClick('3')" className="grid-item">3</button>
-          <button @click="handleClick('4')" className="grid-item">4</button>
-          <button @click="handleClick('5')" className="grid-item">5</button>
-          <button @click="handleClick('6')" className="grid-item">6</button>
-          <button @click="handleClick('7')" className="grid-item">7</button>
-          <button @click="handleClick('8')" className="grid-item">8</button>
-          <button @click="handleClick('9')" className="grid-item">9</button>
+          <button
+            v-for="value in buttonArray"
+            :key="value"
+            @click="handleClick(value)"
+            className="grid-item"
+          >
+            {{ Number(value) }}
+          </button>
           <div />
           <button @click="handleClick('0')" className="grid-item">0</button>
           <div />
