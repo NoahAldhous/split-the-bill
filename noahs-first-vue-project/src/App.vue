@@ -17,7 +17,15 @@ const remainder = ref(0);
 
 const oddOneOut = ref("");
 
-const buttonArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const calculatorButtonArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+const serviceChargeButtonArray = [
+  { buttonClass: "--0 active", buttonNum: 0 },
+  { buttonClass: "--5", buttonNum: 5 },
+  { buttonClass: "--10", buttonNum: 10 },
+  { buttonClass: "--15", buttonNum: 15 },
+  { buttonClass: "--20", buttonNum: 20 },
+];
 
 //Called when the slider is moved.
 function changeNumberOfGuests() {
@@ -156,7 +164,7 @@ function calculateAmountToPay() {
       <section className="sub-total-container">
         <div className="grid-container">
           <button
-            v-for="value in buttonArray"
+            v-for="value in calculatorButtonArray"
             :key="value"
             @click="handleClick(value)"
             className="grid-item"
@@ -175,6 +183,14 @@ function calculateAmountToPay() {
         <h3 className="service-sub-heading">Add a tip?</h3>
         <section className="service-charge-button-container">
           <button
+            v-for="value in serviceChargeButtonArray"
+            :key="value.buttonNum"
+            :class="['service-charge-button', value.buttonClass]"
+            @click="changeServiceCharge(value.buttonNum)"
+          >
+            {{ value.buttonNum }}%
+          </button>
+          <!-- <button
             className="service-charge-button --0 active"
             @click="changeServiceCharge(0)"
           >
@@ -209,7 +225,7 @@ function calculateAmountToPay() {
             @click="changeServiceCharge(20)"
           >
             20%
-          </button>
+          </button> -->
         </section>
       </section>
       <section className="split-container">
