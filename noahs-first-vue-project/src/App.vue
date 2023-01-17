@@ -190,42 +190,6 @@ function calculateAmountToPay() {
           >
             {{ value.buttonNum }}%
           </button>
-          <!-- <button
-            className="service-charge-button --0 active"
-            @click="changeServiceCharge(0)"
-          >
-            0%
-          </button>
-          <button
-            className="service-charge-button --5"
-            @click="changeServiceCharge(5)"
-          >
-            5%
-          </button>
-          <button
-            className="service-charge-button --10"
-            @click="changeServiceCharge(10)"
-          >
-            10%
-          </button>
-          <button
-            className="service-charge-button --12"
-            @click="changeServiceCharge(12)"
-          >
-            12%
-          </button>
-          <button
-            className="service-charge-button --15"
-            @click="changeServiceCharge(15)"
-          >
-            15%
-          </button>
-          <button
-            className="service-charge-button --20"
-            @click="changeServiceCharge(20)"
-          >
-            20%
-          </button> -->
         </section>
       </section>
       <section className="split-container">
